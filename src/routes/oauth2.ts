@@ -1,13 +1,13 @@
 import express from 'express';
 const router = express.Router();
-import { exchangeCode, getNewAccessToken, OauthRequest, signup } from '../controllers/Oauth-controller';
+import { getAccessAndRefreshToken, getNewAccessToken, OauthRedirectCallback, signup } from '../controllers/Oauth-controller';
 
 
 router.get('/',signup);
 
-router.post('/exchange-code',exchangeCode );
+router.post('/exchange-code', getAccessAndRefreshToken);
 
-router.post('/request', OauthRequest);
+router.post('/request', OauthRedirectCallback);
 
 router.post('/get-new-accessToken', getNewAccessToken);
 

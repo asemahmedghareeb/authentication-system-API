@@ -62,7 +62,7 @@ const signup = asyncHandler(async (req: Request, res: Response, next: NextFuncti
     return res.redirect(303, redirectUrl);
 });
 
-const OauthRequest = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const OauthRedirectCallback = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
 
     res.header('Access-Control-Allow-Origin', 'http://localhost:5173');
     res.header('Referrer-Policy', 'no-referrer-when-downgrade');
@@ -76,7 +76,7 @@ const OauthRequest = asyncHandler(async (req: Request, res: Response, next: Next
     res.status(200).json({ status: SUCCESS, data: { url: authorizeUrl } });
 });
 
-const exchangeCode = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+const getAccessAndRefreshToken = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<any> => {
 
     const code = req.body.code;
     if (!code) {
@@ -123,4 +123,4 @@ async function getUserData(accessToken: string) {
     return data;
 }
 
-export { signup, exchangeCode, OauthRequest, getNewAccessToken };
+export { signup, getAccessAndRefreshToken, OauthRedirectCallback, getNewAccessToken };
