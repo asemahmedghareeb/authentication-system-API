@@ -11,7 +11,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 const signup = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const { name, email, password } = req.body;
-    const userExists = await User.findOne({ email });
+    const userExists:IUser|null = await User.findOne({ email });
     if (userExists) {
         return next(appError.createError("user already exists", 400, FAILED));
     }

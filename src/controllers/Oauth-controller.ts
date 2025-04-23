@@ -14,12 +14,12 @@ const CODE_EXPIRATION_TIME = 60 * 1000; // 1 minute
 const oAuth2Client = new OAuth2Client(
     process.env.CLIENT_ID,
     process.env.CLIENT_SECRET,
-    process.env.CALLBACK_URL 
+    process.env.CALLBACK_URL
 );
 
 const signup = asyncHandler(async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const code: any = req.query.code;
-    const error: any = req.query.error;
+    const code:any = req.query.code;
+    const error:any = req.query.error;
     if (error) {
         console.error('Google OAuth login failed:', error);
         return res.redirect(303, `${process.env.CLIENT_URL}/auth-callback?error=google_login_failed`);
@@ -38,7 +38,7 @@ const signup = asyncHandler(async (req: Request, res: Response, next: NextFuncti
         userExists.refreshToken = user.refresh_token!;
         await userExists.save();
 
-    }else {
+    } else {
         const newUser: IUser | null = new User({
             name: userData.name,
             email: userData.email,
